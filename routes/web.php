@@ -1,6 +1,7 @@
 <?php
 
 use Illuminate\Support\Facades\Route;
+use App\Http\Controllers\AuthController;
 use App\Http\Controllers\ContactController;
 use App\Http\Controllers\CategoryController;
 use App\Http\Controllers\BookController;
@@ -37,3 +38,11 @@ Route::get('/contact', [ContactController::class, 'index']);
 
 Route::resource('categories', CategoryController::class); //MEMBUAT ALAMAT SESUAI PERUNTUKANNYA, RESOURCE CARA SINGKAT MEMBUAT CRUD
 Route::resource('books', BookController::class);
+
+Route::get('/login', [AuthController::class, 'showLoginForm'])->name('login');
+Route::post('/login', [AuthController::class, 'login']);
+Route::post('/logout', [AuthController::class, 'logout'])->name('logout');
+Route::middleware('auth')->group(function () {
+    Route::resource('books', BookController::class);
+    Route::resource('categories', CategoryController::class);
+});

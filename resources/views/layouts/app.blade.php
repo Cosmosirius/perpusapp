@@ -1,6 +1,5 @@
 <!DOCTYPE html>
 <html lang="en">
-
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
@@ -9,60 +8,57 @@
     <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css" rel="stylesheet"
         crossorigin="anonymous">
 </head>
-
 <body>
 
-    <nav class="navbar navbar-expand-lg bg-light mb-4">
-        <div class="container">
-            <a class="navbar-brand" href="{{ url('/') }}">Perpus App</a>
+<nav class="navbar navbar-expand-lg bg-light mb-4">
+    <div class="container">
+        <a class="navbar-brand" href="{{ url('/') }}">Perpus App</a>
 
-            <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNav">
-                <span class="navbar-toggler-icon"></span>
-            </button>
+        <button class="navbar-toggler" type="button" data-bs-toggle="collapse"
+                data-bs-target="#navbarNav">
+            <span class="navbar-toggler-icon"></span>
+        </button>
 
-            <div class="collapse navbar-collapse" id="navbarNav">
+        <div class="collapse navbar-collapse" id="navbarNav">
 
-                <ul class="navbar-nav me-auto">
-
-
+            <!-- LEFT MENU -->
+            <ul class="navbar-nav">
+                @auth
                     <li class="nav-item">
-                        <a class="nav-link" href="#">Books</a>
-                    </li>
-
-                    <li class="nav-item">
-                        <a class="nav-link" href="{{ route('categories.index') }}">Categories</a>
+                        <a href="{{ route('books.index') }}" class="nav-link">Books</a>
                     </li>
                     <li class="nav-item">
-                        <a class="nav-link" href="#">Cart</a>
+                        <a href="{{ route('categories.index') }}" class="nav-link">Categories</a>
                     </li>
+                @endauth
+            </ul>
 
-                </ul>
-
-
-                <ul class="navbar-nav">
+            <!-- RIGHT MENU -->
+            <ul class="navbar-nav ms-auto">
+                @auth
                     <li class="nav-item">
-                        <form action="#" method="POST" class="d-inline">
+                        <form action="{{ route('logout') }}" method="POST" class="d-inline">
                             @csrf
-                            <button class="btn btn-link nav-link" type="submit">Logout</button>
+                            <button type="submit" class="btn btn-sm btn-warning">Logout</button>
                         </form>
                     </li>
-
+                @else
                     <li class="nav-item">
-                        <a class="nav-link" href="#">Login</a>
+                        <a href="{{ route('login') }}" class="nav-link">Login</a>
                     </li>
-                </ul>
+                @endauth
+            </ul>
 
-
-            </div>
         </div>
-    </nav>
-
-    <div class="container">
-        @yield('content')
     </div>
+</nav>
 
-    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js"
+
+<div class="container">
+    @yield('content')
+</div>
+
+<script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js"
         crossorigin="anonymous"></script>
 </body>
-
 </html>

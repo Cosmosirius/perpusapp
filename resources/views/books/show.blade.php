@@ -32,7 +32,7 @@
                         <li class="list-group-item"><strong>Author:</strong> {{ $book->author ?? '-' }}</li>
                         <li class="list-group-item">
                             <strong>Published:</strong>
-                            {{ $book->published_year ? \Carbon\Carbon::parse($book->published_year)->format('d-m-Y') : '-' }}
+                            {{ $book->published_date ? \Carbon\Carbon::parse($book->published_date)->format('d-m-Y') : '-' }}
                         </li>
                         <li class="list-group-item"><strong>ISBN:</strong> {{ $book->isbn ?? '-' }}</li>
                         <li class="list-group-item"><strong>Category:</strong> {{ $book->category->name ?? '-' }}</li>
