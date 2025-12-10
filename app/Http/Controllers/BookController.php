@@ -131,4 +131,27 @@ class BookController extends Controller
             return redirect()->route('books.index')->with('error', 'Failed to delete book. Please try again.');
         }
     }
+
+    // UNTUK HANDLE WELCOME PAGE DENGAN SEARCH
+
+    public function welcome(Request $request)
+    {
+        try {
+            $search = $request->input('search');
+            $books = Book::when($search, function ($query, $search) {
+                return $query->where('title', 'like', "%{$search}%");
+            })->get();
+
+            return view('welcome', compact('books', 'search'));
+        } catch (\Exception $e) {
+            Log::error('Failed to load welcome page: ' . $e->getMessage());
+            return redirect()->route('books.index')->with('error', 'Failed to load books. Please try again.');
+        }
+    }
+
+    public function showUser($id)
+    {
+        $book = Book::with('category')->findOrFail($id);
+        return view('books.showuser', compact('book'));
+    }
 }
